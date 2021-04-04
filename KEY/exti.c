@@ -5,6 +5,10 @@
 void NVIC_Configuration(void)
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	//嵌套向量中断控制器组选择
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
+	
 	//配置中断源 (值为位置)
 	NVIC_InitStructure.NVIC_IRQChannel = KEY0_INT_EXTI_IRQ;
 	//配置抢占优先级
