@@ -118,3 +118,25 @@ void HSI_SystemClock(uint32_t PLLM, uint32_t PLLN, uint32_t PLLP, uint32_t PLLQ)
 	}
 }
 
+
+/*
+	名称：软件毫秒延时函数
+	功能：一个毫秒的计数器重载值，timecount个毫秒，延时timecount毫秒
+	输入：timecount -- 延时时间，单位毫秒
+	输出：无
+*/
+void system_Software_delay_ms(uint16_t timecount)
+{
+	uint16_t i = timecount;
+	SysTick_Config(SystemCoreClock/1000);  //1ms的滴答周期，此函数会将中断打开，选用168MHz的时钟频率
+	SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; //关闭中断 
+
+	while(i)
+	{
+		while( !((SysTick->CTRL) & (1<<16)) );//计数器还没有计数到重载值
+		SysTick->CTRL &= ~(1<<16);//清零
+		i--;
+	}
+	SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;//失能计数器
+}
+

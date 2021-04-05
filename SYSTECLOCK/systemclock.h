@@ -8,6 +8,8 @@
 void HSE_SystemClock(uint32_t PLLM, uint32_t PLLN, uint32_t PLLP, uint32_t PLLQ);
 //HSI 16MHz
 void HSI_SystemClock(uint32_t PLLM, uint32_t PLLN, uint32_t PLLP, uint32_t PLLQ);
+void system_Software_delay_ms(uint16_t timecount);
+
+
 
 #endif // __SYSTEMINIT_H
-
